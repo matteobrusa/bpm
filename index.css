@@ -1,0 +1,164 @@
+body {
+	background-color: #000;
+	color:#fff;
+	font-family: sans-serif
+}
+
+section {
+	background-color: #333;
+	margin-bottom: 32px
+}
+
+article {
+	background-color: #555;
+	display: inline-block;
+	margin:3px;
+}
+
+article.single {
+	display:block;
+}
+
+img {
+	max-height:200px;
+	min-height:200px;
+	width: auto;
+	height: auto;
+	margin: 4px;
+}
+
+h1 {
+	margin: 0px;
+	padding: 10px;
+	display: inline-block;
+	background-color: #222;
+	font-size: 1.5em;
+	color: #bbb;
+}
+
+p {
+	margin: 4px;
+	padding: 4px;
+}
+
+.highlight {
+	color: #ffa;	
+}
+
+span {
+	color: #ffa;
+	margin:3px
+}
+
+input {
+	background-color: #411;
+	color: #e4e9ff;
+	outline: none;
+	border: 0px;
+	font-size: 1em;
+	margin:4px;
+}
+
+#inputArticles {
+	width:100%; 
+}
+
+a {
+	margin:3px;
+	font-size: 0.9em;
+}
+
+b { 
+	font-weight:normal; 
+	font-size: 0.9em;
+}
+
+a:link {
+  color: #9af;
+}
+
+a:visited {
+  color: #88f;
+}
+
+a:hover {
+  color: #aaf;
+}
+
+a:active {
+  color: #88f;
+}
+
+.selected {
+	background-color: #333;
+	color: #fff
+}
+
+.articlesList {
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+table {
+	background-color: black;
+    border-collapse: collapse;
+//    width:100%;
+}
+
+tr {
+	background-color: #333;
+}
+
+td {
+}
+ 
+
+tr.rowHeader {
+	padding-top:5px;
+	border-top: 12px solid #000; 
+	border-bottom: 0px;
+	padding-bottom: 0px;
+	text-align: left;
+} 
+
+td.suggestions {
+	padding:2px;
+//	overflow: hidden;
+}
+
+td.inStream {
+	text-align: right;
+	padding:2px;
+}
+
+td:first-child {
+	background-color: #411;
+}
+
+
+.progress:after {
+	content: ".";
+	animation: dots 2s infinite
+}
+
+@keyframes dots {
+  0% {
+  	content: ""
+  }
+  25% {
+  	content: ""
+  }
+  50% {
+  	content: "."
+  }
+  75% {
+  	content: ".."
+  }
+  100% {
+  	content: "..."
+  }
+}
+
+
+
+
