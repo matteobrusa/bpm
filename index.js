@@ -66,6 +66,8 @@ function loadPlaylists() {
 	})	
 }
 
+// var track_bpm= {}
+
 function loadPlaylist(url) {
 
 	$.ajax({
@@ -94,6 +96,8 @@ function loadPlaylist(url) {
 
 				row.attr("data-uri", item.track.uri)
 
+				row.attr("id", id)
+
 				var t= $("<td>")
 				t.html(title)
 				row.append(t)
@@ -106,6 +110,8 @@ function loadPlaylist(url) {
 				row.append(t)
 
 				$("#tracks").append(row)
+
+				//track_bpm[id]= ""
 				
 				fetchBPM(id, t, n*50)
 
@@ -150,6 +156,32 @@ function highlightPlaylist(el) {
 	lastHighlightPlaylist.addClass("highlight")
 }
 
+
+function reorder (id, bpm){
+
+	var parent= $("#tracks")
+	var list= parent.children("tr")
+
+	list.detach()
+	var n= list.sort(function (a,b){
+
+		var x= a.getAttribute("bpm")
+		if (x==null)
+			x=0
+		var y= b.getAttribute("bpm")
+		if (y==null)
+			y=0
+
+		x= parseInt(x)
+		y= parseInt(y)
+
+		return y-x
+	})
+
+	
+	parent.append(list)
+}
+
 function fetchBPM(id, el, delay) {
 
 	 
@@ -163,7 +195,14 @@ function fetchBPM(id, el, delay) {
 			success: function(data) { 
 				var bpm= parseFloat(data.tempo)
 				if (bpm<100) bpm*=2
-				el.html(parseInt(bpm))
+
+				bpm= parseInt(bpm)
+				
+				el.html(bpm)
+
+				el.parent().attr("bpm", bpm)
+
+				reorder(id, bpm)
 			},
 			error: function (request, status, error) {
 				if (error="429") {
