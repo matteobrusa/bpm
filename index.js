@@ -16,6 +16,7 @@ function getParams() {
   return result;
 }
 
+
 function auth() {
 	var redir="https://accounts.spotify.com/authorize?client_id="+client_id+"&response_type=token"
 		+"&scope="+encodeURIComponent("playlist-read-private playlist-read-collaborative")
@@ -37,7 +38,9 @@ function loadPlaylists() {
 		url: "https://api.spotify.com/v1/me/playlists?limit=50",
 		type: "GET",
 		headers: {"Authorization": "Bearer "+ authToken},
-		error: auth,
+		error: function() {
+			alert ("can't auth!")
+		},
 		success: function(data) { 
 			
 			var section= $("#playlists")
