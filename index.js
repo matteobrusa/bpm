@@ -116,7 +116,7 @@ function loadPlaylist(url) {
 
 				//track_bpm[id]= ""
 				
-				fetchBPM(id, t, n*50)
+				fetchBPM(id, t, n*100)
 
 				row.click(openSpotify)
 				
@@ -210,7 +210,7 @@ function fetchBPM(id, el, delay) {
 			error: function (request, status, error) {
 				if (error="429") {
 					
-					fetchBPM(id, el,2000)
+					fetchBPM(id, el,3000)
 				}
 			}
 
