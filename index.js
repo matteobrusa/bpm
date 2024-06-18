@@ -187,7 +187,8 @@ function reorder (id, bpm){
 
 function fetchBPM(id, el, delay) {
 
-	 
+	if (id==null) 
+		return
 
 	setTimeout(function() {
 					 
