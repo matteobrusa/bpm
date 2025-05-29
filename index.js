@@ -4,7 +4,7 @@
 
 var authToken
 var client_id= "366c7b23d83b4ace88e0665044caa68d"
-
+var stop= false
 
 function getParams() {
   var query = location.hash.substring(1)
@@ -90,6 +90,7 @@ function loadPlaylist(url) {
 				var item= res.items[n]
 				var title= item.track.name
 				var artist= item.track.artists["0"].name
+				var album= item.track.album.name
 				var id= item.track.id
 
 				var row= $("<tr>")
@@ -113,7 +114,8 @@ function loadPlaylist(url) {
 
 				//track_bpm[id]= ""
 				
-				fetchBPM(id, t, n*50)
+
+				fetchBPM(title, album, artist, t, n*50)
 
 				row.click(openSpotify)
 				
@@ -182,7 +184,7 @@ function reorder (id, bpm){
 	parent.append(list)
 }
 
-function fetchBPM(id, el, delay) {
+function fetchBPMSpoty(id, el, delay) {
 
 	 
 
@@ -209,6 +211,47 @@ function fetchBPM(id, el, delay) {
 					
 					fetchBPM(id, el,2000)
 				}
+			}
+
+		})
+	}, delay)
+}
+
+function fetchBPM(title, album, artist, el, delay) {
+
+	 
+
+	setTimeout(function() {
+
+	if (stop) {
+		console.log("stopped")
+		return
+	}
+		
+	$.ajax({
+			url: "https://api.getsong.co/"+id,
+			type: "GET",
+			headers: {"Authorization": "Bearer "+ authToken},
+			success: function(data) { 
+				var bpm= parseFloat(data.tempo)
+				if (bpm<100) bpm*=2
+
+				bpm= parseInt(bpm)
+				
+				el.html(bpm)
+
+				el.parent().attr("bpm", bpm)
+
+				reorder(id, bpm)
+			},
+			error: function (request, status, error) {
+/*				
+				if (error="429") {
+					fetchBPM(id, el,2000)
+				}
+*/				
+				stop= true
+				console.log("Got status: "+ status + ", stopping")
 			}
 
 		})
