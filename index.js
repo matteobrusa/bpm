@@ -16,6 +16,7 @@ function getParams() {
   return result;
 }
 
+
 function auth() {
 	var redir="https://accounts.spotify.com/authorize?client_id="+client_id+"&response_type=token"
 		+"&scope="+encodeURIComponent("playlist-read-private playlist-read-collaborative")
@@ -37,7 +38,9 @@ function loadPlaylists() {
 		url: "https://api.spotify.com/v1/me/playlists?limit=50",
 		type: "GET",
 		headers: {"Authorization": "Bearer "+ authToken},
-		error: auth,
+		error: function() {
+			alert ("can't auth!")
+		},
 		success: function(data) { 
 			
 			var section= $("#playlists")
@@ -114,8 +117,10 @@ function loadPlaylist(url) {
 
 				//track_bpm[id]= ""
 				
+ 
 
 				fetchBPM(title, album, artist, t, n*50)
+ 
 
 				row.click(openSpotify)
 				
@@ -186,7 +191,8 @@ function reorder (id, bpm){
 
 function fetchBPMSpoty(id, el, delay) {
 
-	 
+	if (id==null) 
+		return
 
 	setTimeout(function() {
 					 
@@ -209,7 +215,7 @@ function fetchBPMSpoty(id, el, delay) {
 			error: function (request, status, error) {
 				if (error="429") {
 					
-					fetchBPM(id, el,2000)
+					fetchBPM(id, el,3000)
 				}
 			}
 
